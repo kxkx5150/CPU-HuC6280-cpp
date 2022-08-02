@@ -10,6 +10,10 @@ MOS 6502 Custom
 ### WIP
 
 
+https://user-images.githubusercontent.com/10168979/182492397-7063b5a8-30f8-458b-a0a7-e4416d701d45.mp4
+
+
+
 
 
 
