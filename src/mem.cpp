@@ -49,7 +49,7 @@ int64_t Mem::Get(int64_t address)
     } else if (address < 0x1ff000) {
         return Core->timer->ReadTimerCounter();
     } else if (address < 0x1ff400) {
-        // return Core.io.GetJoystick();
+        return Core->io->GetJoystick();
     } else if (address < 0x1ff800) {
         switch (address & 0x000003) {
             case 0x02:
@@ -128,7 +128,7 @@ void Mem::Set(int64_t address, int64_t data)
         }
         return;
     } else if (address < 0x1ff400) {
-        // Core.io.SetJoystick(data);
+        Core->io->SetJoystick(data);
         return;
     } else if (address < 0x1ff800) {
         switch (address & 0x000003) {

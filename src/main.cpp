@@ -18,31 +18,6 @@ void render_loop(PC *pc, SDL_Renderer *render, int width, int height)
         // pc->paint(render, width, height);
     }
 }
-uint8_t keycode_to_pad(SDL_Event event)
-{
-    auto key = event.key.keysym.sym;
-    // switch (key) {
-    //     case SDLK_x:
-    //         return PAD_A;
-    //     case SDLK_z:
-    //         return PAD_B;
-    //     case SDLK_a:
-    //         return PAD_SELECT;
-    //     case SDLK_s:
-    //         return PAD_START;
-    //     case SDLK_RIGHT:
-    //         return PAD_R;
-    //     case SDLK_LEFT:
-    //         return PAD_L;
-    //     case SDLK_UP:
-    //         return PAD_U;
-    //     case SDLK_DOWN:
-    //         return PAD_D;
-    //     default:
-    //         return 0;
-    // }
-    return 0;
-}
 int main(int ArgCount, char **Args)
 {
     PC *pc = new PC();
@@ -86,15 +61,14 @@ int main(int ArgCount, char **Args)
                 case SDL_QUIT:
                     quit = true;
                     break;
-                case SDL_KEYDOWN:
-                    pad |= keycode_to_pad(event);
-                    // io->set_ctrlstat1(pad);
-                    break;
+                case SDL_KEYDOWN: {
+                    auto keyCode = event.key.keysym.sym;
+                    pc->io->CheckKeyDownFunction(keyCode);
+                } break;
                 case SDL_KEYUP: {
-                    pad &= ~keycode_to_pad(event);
-                    // io->set_ctrlstat1(pad);
-                    break;
-                }
+                    auto keyCode = event.key.keysym.sym;
+                    pc->io->CheckKeyUpFunction(keyCode);
+                } break;
             }
         }
         pc->DrawFlag = false;

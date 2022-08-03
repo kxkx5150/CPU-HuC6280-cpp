@@ -13,6 +13,7 @@
 #include "vpc.h"
 #include "vce.h"
 #include "vdc.h"
+#include "io.h"
 
 class PC {
   public:
@@ -24,6 +25,7 @@ class PC {
     VPC     *vpc    = nullptr;
     VCE     *vce    = nullptr;
     VDC     *vdc    = nullptr;
+    IO      *io     = nullptr;
 
     bool BRAKE    = false;
     bool DrawFlag = false;

@@ -6,10 +6,10 @@
 class PC;
 class Mem {
   public:
-    PC      *Core      = nullptr;
+    PC     *Core      = nullptr;
     int64_t MPRSelect = 0;
     int64_t RAMMask   = 0x1fff;
-    bool     BRAMUse   = false;
+    bool    BRAMUse   = false;
 
     int64_t MPR[8];
     int64_t RAM[0x8000];
@@ -19,10 +19,10 @@ class Mem {
     Mem(PC *_core);
 
     int64_t Get(int64_t address);
-    void     Set(int64_t address, int64_t data);
+    void    Set(int64_t address, int64_t data);
     int64_t Get16(int64_t address);
-    void     StorageReset();
-    void     Init();
+    void    StorageReset();
+    void    Init();
 };
 
 #endif

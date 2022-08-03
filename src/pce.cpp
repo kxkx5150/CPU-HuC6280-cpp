@@ -1,5 +1,4 @@
 #include "pce.h"
-#include <cstdint>
 
 PC::PC()
 {
@@ -14,6 +13,7 @@ PC::~PC()
     delete vpc;
     delete vce;
     delete vdc;
+    delete io;
 }
 void PC::init()
 {
@@ -25,7 +25,7 @@ void PC::init()
     vpc   = new VPC();
     vce   = new VCE(this);
     vdc   = new VDC(this);
-
+    io    = new IO();
     reset();
 }
 void PC::reset()
@@ -87,7 +87,6 @@ void PC::put_image(uint32_t *imgdata)
     float  elapsedMS = (end - start) / (float)SDL_GetPerformanceFrequency() * 1000.0f;
     if (16.666f > elapsedMS)
         SDL_Delay(floor(16.666f - elapsedMS));
-    // DrawFlag = false;
 }
 void PC::UpdateTexture(SDL_Texture *texture, uint32_t *imgdata, int width, int height)
 {
