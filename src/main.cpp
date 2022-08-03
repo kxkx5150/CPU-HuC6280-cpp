@@ -11,6 +11,7 @@
 
 int Running = 1;
 int width = 342, height = 262;
+// int width = 456, height = 262;    // r-type
 
 void render_loop(PC *pc, SDL_Renderer *render, int width, int height)
 {

@@ -5,10 +5,17 @@
 
 class IO {
   public:
+    int JoystickSEL = 0;
+    int JoystickCLR = 0;
+    int selected    = -1;
+
     int Keybord[5][4];
     int GamePad[5][4];
 
-    int GamePadBuffer = 0x00;
+    int GamePadSelect       = 0x00;
+    int GamePadButtonSelect = 0x00;
+    int GamePadBuffer       = 0x00;
+    int CountryType         = 0x40;
 
   public:
     IO()
@@ -21,11 +28,33 @@ class IO {
 
     uint64_t GetJoystick()
     {
-        return Keybord[0][0];
+        return GamePadBuffer;
     }
     void SetJoystick(int data)
     {
-        Keybord[0][0] = Keybord[0][0] | 0x40;
+        int sel = data & 0x01;
+        int clr = (data & 0x02) >> 1;
+
+        if (JoystickSEL == 1 && JoystickCLR == 0 && sel == 1 && clr == 1) {
+            JoystickSEL   = 0;
+            JoystickCLR   = 0;
+            GamePadSelect = 0;
+            GamePadBuffer = 0xb0 | CountryType;
+            return;
+        }
+
+        if (JoystickSEL == 0 && JoystickCLR == 0 && sel == 1 && clr == 0)
+            GamePadSelect++;
+
+        JoystickSEL = sel;
+        JoystickCLR = clr;
+
+        int no = 0;
+        if (no < 5) {
+            int tmp       = GamePadButtonSelect | JoystickSEL;
+            GamePadBuffer = Keybord[no][tmp] | CountryType;
+        } else
+            GamePadBuffer = 0xb0 | CountryType;
     }
     void CheckKeyUpFunction(int keyCode)
     {
